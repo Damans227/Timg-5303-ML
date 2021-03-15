@@ -4,8 +4,7 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
-#Adding UI
-import streamlit as st
+import streamlit
 
 # Run in python console
 import nltk; nltk.download('stopwords')
@@ -26,6 +25,8 @@ import matplotlib.pyplot as plt
 
 # Enable logging for gensim - optional
 import logging
+
+
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.ERROR)
 
 # NLTK Stop words
@@ -78,4 +79,4 @@ print(lda_model.print_topics())
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-	print("Script Ran Successfully!")
+    print("Script Ran Successfully!")
