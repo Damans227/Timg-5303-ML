@@ -34,6 +34,9 @@ from spacy.lang.en import English
 
 parser = English()
 
+# Set # of topics
+num_topics=20
+
 # NLTK Stop words
 from nltk.corpus import stopwords
 
@@ -107,7 +110,7 @@ id2word[0]
 # Build LDA model
 lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
                                             id2word=id2word,
-                                            num_topics=20,
+                                            num_topics=num_topics,
                                             random_state=100,
                                             update_every=1,
                                             chunksize=100,
@@ -123,8 +126,9 @@ doc_lda = lda_model[corpus]
 vis = pyLDAvis.gensim.prepare(lda_model, corpus, id2word)
 # git print(vis)
 
-df_doctop = pd.DataFrame(0.0, index=np.arange(len(data)), columns=range(20))
+df_doctop = pd.DataFrame(np.zeros((len(data),num_topics),dtype=float), index=np.arange(len(data)), columns=[list(range(num_topics))])
 count=0
+
 for a in data:
     doc_topic_weights = getDocTopicWeight(lda_model, a)
     for b in doc_topic_weights:
@@ -132,12 +136,15 @@ for a in data:
         df_doctop.at[count, b[0]] = b[1]
 
         # df_doctop.append(b[1]: doc_topic_weights)
-    print(doc_topic_weights[:][1])
+    # print(doc_topic_weights[:][1])
     count=count+1
 
+# Heatmap of weights
 plt.pcolor(df_doctop)
-plt.yticks(np.arange(0.5, len(df_doctop.index), 1), df_doctop.index)
-plt.xticks(np.arange(0.5, len(df_doctop.columns), 1), df_doctop.columns)
+plt.yticks(np.arange(0, len(df_doctop.index), 1), df_doctop.index)
+plt.xticks(np.arange(0, len(df_doctop.columns), 1), df_doctop.columns)
 plt.show()
 
+df_doctop['Assertion']=data
 df_doctop.to_csv("document_topic_weights.csv")
+
