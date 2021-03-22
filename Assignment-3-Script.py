@@ -121,7 +121,7 @@ doc_lda = lda_model[corpus]
 
 # Visualize the topics
 vis = pyLDAvis.gensim.prepare(lda_model, corpus, id2word)
-print(vis)
+# print(vis)
 
 df_doctop = pd.DataFrame(0.0, index=np.arange(len(data)), columns=range(20))
 count=0
@@ -140,4 +140,4 @@ plt.yticks(np.arange(0.5, len(df_doctop.index), 1), df_doctop.index)
 plt.xticks(np.arange(0.5, len(df_doctop.columns), 1), df_doctop.columns)
 plt.show()
 
-print(df_doctop)
+df_doctop.to_csv("document_topic_weights.csv")
