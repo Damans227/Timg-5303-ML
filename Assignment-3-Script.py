@@ -121,7 +121,7 @@ doc_lda = lda_model[corpus]
 
 # Visualize the topics
 vis = pyLDAvis.gensim.prepare(lda_model, corpus, id2word)
-# print(vis)
+# git print(vis)
 
 df_doctop = pd.DataFrame(0.0, index=np.arange(len(data)), columns=range(20))
 count=0
