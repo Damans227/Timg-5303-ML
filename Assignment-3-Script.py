@@ -122,6 +122,13 @@ lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
 pprint(lda_model.print_topics())
 doc_lda = lda_model[corpus]
 
+top_words_per_topic = []
+for t in range(lda_model.num_topics):
+    top_words_per_topic.extend([(t, ) + x for x in lda_model.show_topic(t, topn = 10)])
+
+pd.DataFrame(top_words_per_topic, columns=['Topic', 'Word', 'P']).to_csv("top_words.csv")
+
+
 # Visualize the topics
 vis = pyLDAvis.gensim.prepare(lda_model, corpus, id2word)
 # git print(vis)
