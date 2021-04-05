@@ -78,6 +78,13 @@ def remove_stopwords(texts_in):
 stop_words = stopwords.words('english')
 stop_words.extend(['from', 'subject', 're', 'edu', 'use'])
 
+sw = pd.read_csv('VP_assertions_stop_words_5303_W2021.txt')
+
+# Convert to list
+sw_data = sw.Archive.tolist()
+# stop_words.extend(sw_data)
+stop_words = sw_data
+
 df = pd.read_csv('230 VP assertions corpus - Group 6.csv')
 df.head()
 
